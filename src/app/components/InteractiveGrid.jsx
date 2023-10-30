@@ -121,6 +121,10 @@ class InteractiveGrid extends Component {
 		}, this.props.velocity);
 	}
 
+	handleStopClick() {
+		clearInterval(this.intervalId);
+	}
+
 	render() {
 		return (
 			<div>
@@ -136,6 +140,7 @@ class InteractiveGrid extends Component {
 			<div>
 			<ButtonComponent name={"Clean"} onClick={() => this.handleCleanClick()}/>
 			<ButtonComponent name={"Run"} onClick={() => this.handleRunClick()}/>
+			<ButtonComponent name={"Stop"} onClick={() => this.handleStopClick()}/>
 			</div>
 			</div>
 		);
