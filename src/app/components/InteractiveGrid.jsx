@@ -8,8 +8,7 @@ class InteractiveGrid extends Component {
 		this.canvasRef = React.createRef();
 		this.state = {
 			isMouseDown: false,
-			grid: Array(this.props.rows)
-			.fill()
+			grid: Array(this.props.rows) .fill()
 			.map(() => Array(this.props.columns).fill('white')),
 		};
 	}
@@ -68,11 +67,12 @@ class InteractiveGrid extends Component {
 		const x = Math.floor(event.nativeEvent.offsetX / cellSize);
 		const y = Math.floor(event.nativeEvent.offsetY / cellSize);
 
-		context.fillStyle = this.props.color; // Establecemos el color de relleno
+		context.fillStyle = this.props.colors[0]; // Establecemos el color de relleno
 		context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize); // Dibujamos
 
 		let newGrid = [...this.state.grid];
-		newGrid[y][x] = this.props.color;
+		let index = Math.floor(Math.random() * this.props.colors.length);
+		newGrid[y][x] = this.props.colors[index];
 		this.setState({ grid: newGrid });
 	}
 
@@ -95,18 +95,20 @@ class InteractiveGrid extends Component {
 			row.forEach((cell, cellIndex) => {
 				// contar vecinos
 				let neighbors = 0;
-				if(rowIndex > 0 && cellIndex > 0 && grid[rowIndex - 1][cellIndex - 1] === this.props.color) neighbors++;
-				if(rowIndex > 0 && grid[rowIndex - 1][cellIndex] === this.props.color) neighbors++;
-				if(rowIndex > 0 && cellIndex < grid[0].length - 1 && grid[rowIndex - 1][cellIndex + 1] === this.props.color) neighbors++;
-				if(cellIndex > 0 && grid[rowIndex][cellIndex - 1] === this.props.color) neighbors++;
-				if(cellIndex < grid[0].length - 1 && grid[rowIndex][cellIndex + 1] === this.props.color) neighbors++;
-				if(rowIndex < grid.length - 1 && cellIndex > 0 && grid[rowIndex + 1][cellIndex - 1] === this.props.color) neighbors++;
-				if(rowIndex < grid.length - 1 && grid[rowIndex + 1][cellIndex] === this.props.color) neighbors++;
-				if(rowIndex < grid.length - 1 && cellIndex < grid[0].length - 1 && grid[rowIndex + 1][cellIndex + 1] === this.props.color) neighbors++;
+				if(rowIndex > 0 && cellIndex > 0 && grid[rowIndex - 1][cellIndex - 1] !== 'white') neighbors++;
+				if(rowIndex > 0 && grid[rowIndex - 1][cellIndex] !== 'white') neighbors++;
+				if(rowIndex > 0 && cellIndex < grid[0].length - 1 && grid[rowIndex - 1][cellIndex + 1] !== 'white') neighbors++;
+				if(cellIndex > 0 && grid[rowIndex][cellIndex - 1] !== 'white') neighbors++;
+				if(cellIndex < grid[0].length - 1 && grid[rowIndex][cellIndex + 1] !== 'white') neighbors++;
+				if(rowIndex < grid.length - 1 && cellIndex > 0 && grid[rowIndex + 1][cellIndex - 1] !== 'white') neighbors++;
+				if(rowIndex < grid.length - 1 && grid[rowIndex + 1][cellIndex] !== 'white') neighbors++;
+				if(rowIndex < grid.length - 1 && cellIndex < grid[0].length - 1 && grid[rowIndex + 1][cellIndex + 1] !== 'white') neighbors++;
 
 				// aplicar regla
-				if(cell == 'white' && neighbors == 3) newGrid[rowIndex][cellIndex] = this.props.color;
-				else if(cell == this.props.color && (neighbors < 2 || neighbors > 3)) newGrid[rowIndex][cellIndex] = 'white';
+				let index = Math.floor(Math.random() * this.props.colors.length);
+				let color = this.props.colors[index];
+				if(cell === 'white' && neighbors == 3) newGrid[rowIndex][cellIndex] = color;
+				else if(cell !== 'white'  && (neighbors < 2 || neighbors > 3)) newGrid[rowIndex][cellIndex] = 'white';
 				else newGrid[rowIndex][cellIndex] = cell;
 			});
 		})
@@ -151,7 +153,7 @@ InteractiveGrid.defaultProps = {
 	rows: 70,
 	columns: 70,
 	velocity: 100,
-	color: "black",
+	colors: ['#273746', '#28B463', '#2E86C1', '#884EA0', '#CB4335', '#D4AC0D', '#CA6F1E', '#707B7C']
 };
 
 export default InteractiveGrid;
