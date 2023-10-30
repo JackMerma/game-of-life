@@ -67,13 +67,15 @@ class InteractiveGrid extends Component {
 		const x = Math.floor(event.nativeEvent.offsetX / cellSize);
 		const y = Math.floor(event.nativeEvent.offsetY / cellSize);
 
-		context.fillStyle = this.props.colors[0]; // Establecemos el color de relleno
-		context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize); // Dibujamos
+		if (x >= 0 && x < this.props.columns && y >= 0 && y < this.props.rows) {
+			context.fillStyle = this.props.colors[0]; // Establecemos el color de relleno
+			context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize); // Dibujamos
 
-		let newGrid = [...this.state.grid];
-		let index = Math.floor(Math.random() * this.props.colors.length);
-		newGrid[y][x] = this.props.colors[index];
-		this.setState({ grid: newGrid });
+			let newGrid = [...this.state.grid];
+			let index = Math.floor(Math.random() * this.props.colors.length);
+			newGrid[y][x] = this.props.colors[index];
+			this.setState({ grid: newGrid });
+		}
 	}
 
 	handleCleanClick() {
