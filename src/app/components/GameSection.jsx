@@ -3,7 +3,7 @@ import InteractiveGrid from './InteractiveGrid'
 
 const GameSection = () => {
     return (
-        <div style={{width: '100%'}}>
+        <div style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}} className='game-box'>
             <InteractiveGrid />
         </div>
     )

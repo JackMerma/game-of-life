@@ -1,6 +1,11 @@
 "use client"
 import React, { Component } from 'react';
 import ButtonComponent from './ButtonComponent';
+import {
+	RotateCcw,
+	Play,
+	Pause,
+} from "lucide-react";
 
 class InteractiveGrid extends Component {
 	constructor(props) {
@@ -137,14 +142,12 @@ class InteractiveGrid extends Component {
 			onMouseDown={(e) => this.handleMouseDown(e)}
 			onMouseUp={() => this.handleMouseUp()}
 			onMouseMove={(e) => this.handleMouseMove(e)}
-			style={{
-				border: '2px solid #121212',
-			}}
+			className='game-box-canvas'
 			></canvas>
-			<div>
-			<ButtonComponent name={"Clean"} onClick={() => this.handleCleanClick()}/>
-			<ButtonComponent name={"Run"} onClick={() => this.handleRunClick()}/>
-			<ButtonComponent name={"Stop"} onClick={() => this.handleStopClick()}/>
+			<div className='button-container'>
+			<ButtonComponent style={"bg-[#CB4335] hover:bg-[#B03A2E]"} icon={<RotateCcw size={20} />} onClick={() => this.handleCleanClick()}></ButtonComponent>
+			<ButtonComponent style={"bg-[#28B463] hover:bg-[#239B56]"} icon={<Play size={20} />} onClick={() => this.handleRunClick()}/>
+			<ButtonComponent style={"bg-[#2E86C1] hover:bg-[#2874A6]"} icon={<Pause size={20} />} onClick={() => this.handleStopClick()}/>
 			</div>
 			</div>
 		);
@@ -152,8 +155,8 @@ class InteractiveGrid extends Component {
 }
 
 InteractiveGrid.defaultProps = {
-	rows: 70,
-	columns: 70,
+	rows: 80,
+	columns: 100,
 	velocity: 100,
 	colors: ['#273746', '#28B463', '#2E86C1', '#884EA0', '#CB4335', '#D4AC0D', '#CA6F1E', '#707B7C']
 };
