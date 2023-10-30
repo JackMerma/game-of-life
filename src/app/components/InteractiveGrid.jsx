@@ -86,6 +86,41 @@ class InteractiveGrid extends Component {
 		context.clearRect(0, 0, context.canvas.width, context.canvas.height);
 	}
 
+	handleAlgorithm(grid){ // solo una generación
+		const newGrid = Array(grid.length)
+			.fill()
+			.map(() => Array(grid[0].length).fill('white'));
+
+		grid.forEach((row, rowIndex) => {
+			row.forEach((cell, cellIndex) => {
+				// contar vecinos
+				let neighbors = 0;
+				if(rowIndex > 0 && cellIndex > 0 && grid[rowIndex - 1][cellIndex - 1] === this.props.color) neighbors++;
+				if(rowIndex > 0 && grid[rowIndex - 1][cellIndex] === this.props.color) neighbors++;
+				if(rowIndex > 0 && cellIndex < grid[0].length - 1 && grid[rowIndex - 1][cellIndex + 1] === this.props.color) neighbors++;
+				if(cellIndex > 0 && grid[rowIndex][cellIndex - 1] === this.props.color) neighbors++;
+				if(cellIndex < grid[0].length - 1 && grid[rowIndex][cellIndex + 1] === this.props.color) neighbors++;
+				if(rowIndex < grid.length - 1 && cellIndex > 0 && grid[rowIndex + 1][cellIndex - 1] === this.props.color) neighbors++;
+				if(rowIndex < grid.length - 1 && grid[rowIndex + 1][cellIndex] === this.props.color) neighbors++;
+				if(rowIndex < grid.length - 1 && cellIndex < grid[0].length - 1 && grid[rowIndex + 1][cellIndex + 1] === this.props.color) neighbors++;
+
+				// aplicar regla
+				if(cell == 'white' && neighbors == 3) newGrid[rowIndex][cellIndex] = this.props.color;
+				else if(cell == this.props.color && (neighbors < 2 || neighbors > 3)) newGrid[rowIndex][cellIndex] = 'white';
+				else newGrid[rowIndex][cellIndex] = cell;
+			});
+		})
+
+		return newGrid;
+	}
+
+	handleRunClick() {
+		clearInterval(this.intervalId);
+		this.intervalId = setInterval(() => {
+			this.setState(prevState => ({ grid: this.handleAlgorithm(prevState.grid) }));
+		}, this.props.velocity);
+	}
+
 	render() {
 		return (
 			<div>
@@ -100,6 +135,7 @@ class InteractiveGrid extends Component {
 			></canvas>
 			<div>
 			<ButtonComponent name={"Clean"} onClick={() => this.handleCleanClick()}/>
+			<ButtonComponent name={"Run"} onClick={() => this.handleRunClick()}/>
 			</div>
 			</div>
 		);
