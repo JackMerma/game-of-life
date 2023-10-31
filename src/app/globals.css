@@ -40,6 +40,8 @@
 
 .modal {
 	font-size: 12px;
+	margin: 0;
+	padding: 0;
 }
 .modal > .header {
 	width: 100%;
@@ -53,10 +55,10 @@
 	padding: 10px 5px;
 	max-height: 600px;
 	overflow: auto;
+	margin-bottom: 0px;
 }
 .modal > .actions {
 	width: 100%;
-	padding: 10px 5px;
 	margin: auto;
 	text-align: center;
 }
@@ -69,10 +71,22 @@
 	right: -10px;
 	top: -10px;
 	font-size: 24px;
-	background: #E5E8E8;
+	background: white;
 	border-radius: 18px;
-	border: 1px solid #cfcece;
+	border: 1px solid #121212;
 }
 .popup-content {
 	border-radius: 5px;
+}
+::-webkit-scrollbar{
+	width: 10px;
+}
+
+::-webkit-scrollbar-track{
+	background: white;
+}
+
+::-webkit-scrollbar-thumb{
+	background-image: linear-gradient(45deg, #82E0AA, #AED6F1);
+	border-radius: 20px;
 }

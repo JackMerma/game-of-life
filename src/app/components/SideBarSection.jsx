@@ -77,10 +77,23 @@ const SideBarSection = () => {
 				<div></div>
 			} icon={<Github size={20} />} text='Source' active />
 			<SidebarItem content={
-				<div></div>
+				<div className='pl-3 pr-3 mt-5'>
+					<p className='text-lg text-justify'>
+						The possibility of creating a 3D version of Conway's Game of Life is a fascinating and exciting idea in the field of computer science and simulation. While the original version of the Game of Life was developed in a two-dimensional plane, transitioning it to a three-dimensional environment could open up new and thrilling possibilities. This move to a three-dimensional space would allow for the simulation of even more complex and realistic structures and patterns, which could have applications in various fields, from biology and chemistry to physics and computer graphics.
+						<br /><br />
+						The significance of this 3D version lies in its ability to model and simulate three-dimensional systems with emergent properties. This could be particularly relevant in scientific research, where simulating complex three-dimensional phenomena could help gain a better understanding of real-world system behaviors. However, it's important to note that the implementation of a 3D version of the Game of Life also comes with significant challenges, such as increased computational complexity and three-dimensional data visualization.
+						<br /><br />
+						The limitations of implementation would be related to computational power and visual representation. 3D simulation would require significantly more processing power than the 2D version, potentially limiting accessibility. Additionally, visualizing three-dimensional structures in a comprehensible and meaningful way would be a challenge in itself. Despite these challenges, a 3D version of Conway's Game of Life offers fertile ground for exploration and innovation in simulation and computation, potentially leading to exciting scientific and technological advances.
+						<br /><br />
+						<div className='flex justify-center items-center-h'>
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/dQJ5aEsP6Fs?si=hB4Cij5DbJisiRJw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+						</div>
+					</p>
+				</div>
 			} icon={<Box size={20} />} text='3D version' active />
 			<SidebarItem content={
-				<div></div>
+				<div className='pl-3 pr-3 mt-5'>
+				</div>
 			} icon={<User2 size={20} />} text='Contact' active />
 		</Sidebar>
 	)
