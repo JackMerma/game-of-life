@@ -1,23 +1,89 @@
 import React from 'react'
-import Sidebar, {SidebarItem} from './Sidebar'
+import Sidebar, { SidebarItem } from './Sidebar'
 
 import {
-    Info,
-    User2,
-    Box,
-    Github,
+	Info,
+	User2,
+	Box,
+	Github,
 } from "lucide-react"
 
 const SideBarSection = () => {
-  return (
-    <Sidebar>
-	 <div id='popup-root'></div>
-        <SidebarItem content={<h1>Hola</h1>} icon={<Info size={20} />} text='Information' active />
-        <SidebarItem content={"bla bla"} icon={<Github size={20} />} text='Source' active />
-        <SidebarItem content={"bla bla"} icon={<Box size={20} />} text='3D version' active />
-        <SidebarItem content={"bla bla"} icon={<User2 size={20} />} text='Contact' active />
-    </Sidebar>
-  )
+	return (
+		<Sidebar>
+			<div id='popup-root'></div>
+			<SidebarItem content={
+				<div className='pl-3 pr-3 mt-5'>
+					<p className='text-justify text-lg'>Conway&apos;s Game of Life is a cellular automaton simulation devised by British mathematician John Conway in 1970. The game is not a traditional game with winners and losers; instead, it&apos;s a zero-player game that operates based on a set of simple rules. It takes place on an infinite grid of cells, which can be either alive or dead. Each cell&apos;s state is determined by its neighboring cells. The game progresses in discrete steps, or generations, as cells evolve according to these rules. The rules dictate that a live cell with fewer than two live neighbors dies due to underpopulation, a live cell with two or three live neighbors continues to live, and a live cell with more than three live neighbors dies due to overpopulation. On the other hand, a dead cell with exactly three live neighbors becomes alive through reproduction. This simple set of rules gives rise to complex and often mesmerizing patterns and behaviors, making Conway&apos;s Game of Life a captivating example of emergent phenomena and a popular subject for computational experimentation.</p>
+					<div className='border-4 mt-7 pl-5 pr-5 border-dotted'>
+						<div className='mt-3 mb-3'>
+							<p className='text-lg'>
+								<strong>Rules</strong>
+								<br /><br />
+
+								In this Game each grid cell can have either one of two states: dead or alive. The Game of Life is controlled by four rules which are applied to each grid cell:
+								<br /><br />
+								1. Any live cell with fewer than two live neighbors dies, as if caused by underpopulation.<br />
+								2. Any live cell with two or three live neighbors lives on to the next generation.<br />
+								3. Any live cell with more than three live neighbors dies, as if by overpopulation.<br />
+								4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+							</p>
+							<div className='ml-3 mt-10 mr-3 mb-3'>
+								<img src="https://beltoforion.de/en/game_of_life/images/rules_en.svg" alt="" className='' />
+							</div>
+						</div>
+					</div>
+					<div className='mt-7'>
+						<p className='text-lg'>
+							<strong>Patterns</strong>
+							<br /><br />
+							There is some patters in Conway&apos;s Game of Life. The folowing patterns are some of the most common:
+							<table className="mt-7 mx-auto border border-gray-300 rounded-lg p-4">
+								<tbody>
+									<tr>
+										<td className="text-center">
+											<p className="text-lg font-semibold">Block</p>
+											<img
+												src="https://beltoforion.de/en/game_of_life/images/block.webp"
+												alt="Descripción de la imagen 1"
+												className="mx-auto"
+											/>
+										</td>
+										<td className="text-center">
+											<p className="text-lg font-semibold">Beehive</p>
+											<img
+												src="https://beltoforion.de/en/game_of_life/images/beehive.webp"
+												alt="Descripción de la imagen 2"
+												className="mx-auto"
+											/>
+										</td>
+										<td className="text-center">
+											<p className="text-lg font-semibold">Loaf</p>
+											<img
+												src="https://beltoforion.de/en/game_of_life/images/loaf.webp"
+												alt="Descripción de la imagen 3"
+												className="mx-auto"
+											/>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</p>
+					</div>
+				</div>
+			} icon={<Info size={20} />} text='Information' active />
+			<SidebarItem content={
+				<div></div>
+			} icon={<Github size={20} />} text='Source' active />
+			<SidebarItem content={
+				<div></div>
+			} icon={<Box size={20} />} text='3D version' active />
+			<SidebarItem content={
+				<div></div>
+			} icon={<User2 size={20} />} text='Contact' active />
+		</Sidebar>
+	)
 }
 
 export default SideBarSection
