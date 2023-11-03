@@ -9,14 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^9.88.11",
     "framer-motion": "^10.16.4",
     "lucide-react": "^0.290.0",
     "next": "14.0.0",
     "react": "^18",
     "react-dom": "^18",
     "react-router-dom": "^6.17.0",
+    "react-three-fiber": "^6.0.13",
     "reactjs-popup": "^2.0.6",
-    "semantic-ui-react": "^2.1.4"
+    "semantic-ui-react": "^2.1.4",
+    "three": "^0.158.0"
   },
   "devDependencies": {
     "autoprefixer": "^10",
