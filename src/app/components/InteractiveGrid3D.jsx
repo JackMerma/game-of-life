@@ -13,19 +13,22 @@ import {
 	MeshTransmissionMaterial,
 	useCursor
 } from '@react-three/drei'
+
 import ButtonComponent from './ButtonComponent';
 import {
 	RotateCcw,
 	Play,
 	Pause,
 } from "lucide-react";
-import { Panel, useControls } from './MultiLeva'
+
+import { Panel, useControls } from './MultiLeva';
+import { gsap } from 'gsap';
 
 const colors = ['#273746', '#28B463', '#2E86C1', '#884EA0', '#CB4335', '#D4AC0D', '#CA6F1E', '#707B7C'];
 const diedColor = 'white';
-const velocity = 1000;
+const velocity = 1400;
 const n = 13;
-const random = 0.6;
+const random = 0.95;
 
 const getRandomColor = () => {
 	const randomIndex = Math.floor(Math.random() * colors.length);
@@ -38,8 +41,12 @@ const Cube = ({ position, color = getRandomColor(), thickness = 1, roughness = 0
 
 	useEffect(() => {
 		if (mesh.current) {
-			mesh.current.material.transparent = !isAlive;
-			mesh.current.material.opacity = isAlive ? 1 : 0;
+			mesh.current.material.transparent = true;
+			gsap.to(mesh.current.material, {
+				opacity: isAlive ? 0.9 : 0,
+				duration: 1.4,
+				ease: "power2.inOut",
+			});
 			mesh.current.material.needsUpdate = true;
 		}
 	}, [color]);
@@ -54,8 +61,10 @@ const Cube = ({ position, color = getRandomColor(), thickness = 1, roughness = 0
 		transmission: { value: transmission, min: 0, max: 1 },
 		...(metalness !== undefined && { metalness: { value: metalness, min: 0, max: 1 } })
 	})
+
 	const isSelected = !!selected.find((sel) => sel === store)
 	useCursor(hovered)
+
 	return (
 		<Box ref={mesh} args={[0.7, 0.7, 0.7]} position={position}>
 		<meshStandardMaterial attach='material' color={color} samples={1} resolution={1}/>
@@ -104,11 +113,11 @@ const generateAlgorithm = (cubes, size) => {
 
 				// Aplicar las reglas del Juego de la Vida
 				if(cubes[x][y][z] !== diedColor) {
-					if(neighbors < 2 || neighbors > 3) {
+					if(neighbors < 5 || neighbors > 6) {
 						newState[x][y][z] = diedColor; // Muerte por soledad o superpoblación
 					}
 				} else {
-					if(neighbors === 3) {
+					if(neighbors === 4) {
 						newState[x][y][z] = getRandomColor(); // Nacimiento
 					}
 				}
@@ -144,8 +153,8 @@ const InteractiveGrid3D = () => {
 
 	return (
 		<div className='h-full w-full'>
-		<Canvas dpr={[1, 2]} orthographic camera={{ position: [-10, 10, 10], zoom: 100 }}>
-		<pointLight position={[10, 10, 10]} />
+		<Canvas dpr={[1, 2]} orthographic camera={{ position: [-13, 13, 13], zoom: 50 }}>
+		<pointLight position={[13, 13, 13]} />
 		{cubeStates.map((xs, x) =>
 			xs.map((ys, y) =>
 				ys.map((color, z) =>
@@ -157,7 +166,7 @@ const InteractiveGrid3D = () => {
 		<OrbitControls makeDefault rotateSpeed={2} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5} />
 		<Sky />
 		</Canvas>
-		<div className='button-container' style={{position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)'}}>
+		<div className='button-container' style={{position: 'absolute', bottom: '25px', left: '50%', transform: 'translateX(-50%)'}}>
 		<ButtonComponent style={"bg-[#CB4335] hover:bg-[#B03A2E]"} icon={<RotateCcw size={20} />} onClick={handleGenerateRandomClick} />
 		<ButtonComponent style={"bg-[#28B463] hover:bg-[#239B56]"} icon={<Play size={20} />} onClick={handleRunClick}/>
 		<ButtonComponent style={"bg-[#2E86C1] hover:bg-[#2874A6]"} icon={<Pause size={20} />} onClick={handleStopClick}/>
