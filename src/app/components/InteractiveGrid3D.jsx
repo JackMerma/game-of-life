@@ -1,37 +1,37 @@
-import React, { useRef, useState } from 'react'
+"use client"
+import React, { Component, useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
+import ButtonComponent from './ButtonComponent';
+import {
+	RotateCcw,
+	Play,
+	Pause,
+} from "lucide-react";
 
-function Box(props) {
-	const meshRef = useRef()
-	const [hovered, setHover] = useState(false)
-	const [active, setActive] = useState(false)
+function Cube(){
 	return (
-		<mesh
-			{...props}
-			ref={meshRef}
-			scale={1}
-			onClick={(event) => setActive(!active)}
-			onPointerOver={(event) => setHover(true)}
-			onPointerOut={(event) => setHover(false)}
-		>
-			<boxGeometry args={[1, 1, 1]} />
-			<meshStandardMaterial color={'green'} />
+		<mesh>
+			<boxGeometry />
 		</mesh>
-	);
+	)
 }
 
 const InteractiveGrid3D = () => {
 	return (
-		<div className='pb-10' style={{ width: '100vh', height: '100vh'}}>
-			<Canvas className='game-box-canvas'>
-				<OrbitControls />
-				<ambientLight />
-				<pointLight position={[1, 1, 1]} intensity={5} />
-				<Box position={[0, 0, 0]} />
-			</Canvas>
+		<div className='pb-10' style={{ width: '100vh', height: '700px'}}>
+		<Canvas className='game-box-canvas'
+		>
+			<OrbitControls />
+			<Cube />
+		</Canvas>
+		<div className='button-container'>
+		<ButtonComponent style={"bg-[#CB4335] hover:bg-[#B03A2E]"} icon={<RotateCcw size={20} />} onClick={() => this.handleCleanClick()} />
+		<ButtonComponent style={"bg-[#28B463] hover:bg-[#239B56]"} icon={<Play size={20} />} onClick={() => this.handleRunClick()}/>
+		<ButtonComponent style={"bg-[#2E86C1] hover:bg-[#2874A6]"} icon={<Pause size={20} />} onClick={() => this.handleStopClick()}/>
 		</div>
-	)
+		</div>
+	);
 }
 
 export default InteractiveGrid3D
