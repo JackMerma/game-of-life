@@ -24,7 +24,7 @@ import { Panel, useControls } from './MultiLeva'
 const colors = ['#273746', '#28B463', '#2E86C1', '#884EA0', '#CB4335', '#D4AC0D', '#CA6F1E', '#707B7C'];
 const diedColor = 'white';
 const velocity = 1000;
-const n = 10;
+const n = 13;
 const random = 0.6;
 
 const getRandomColor = () => {
@@ -157,7 +157,7 @@ const InteractiveGrid3D = () => {
 		<OrbitControls makeDefault rotateSpeed={2} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5} />
 		<Sky />
 		</Canvas>
-		<div className='button-container'>
+		<div className='button-container' style={{position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)'}}>
 		<ButtonComponent style={"bg-[#CB4335] hover:bg-[#B03A2E]"} icon={<RotateCcw size={20} />} onClick={handleGenerateRandomClick} />
 		<ButtonComponent style={"bg-[#28B463] hover:bg-[#239B56]"} icon={<Play size={20} />} onClick={handleRunClick}/>
 		<ButtonComponent style={"bg-[#2E86C1] hover:bg-[#2874A6]"} icon={<Pause size={20} />} onClick={handleStopClick}/>
