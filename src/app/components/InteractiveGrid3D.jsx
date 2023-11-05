@@ -21,14 +21,20 @@ import {
 } from "lucide-react";
 import { Panel, useControls } from './MultiLeva'
 
-const colors = ["green", "white"];
+const colors = ['#273746', '#28B463', '#2E86C1', '#884EA0', '#CB4335', '#D4AC0D', '#CA6F1E', '#707B7C'];
+const diedColor = 'white';
 const velocity = 1000;
 const n = 10;
 const random = 0.6;
 
-const Cube = ({ position, color = 'white', thickness = 1, roughness = 0.5, envMapIntensity = 1, transmission = 1, metalness, ...props }) => {
+const getRandomColor = () => {
+	const randomIndex = Math.floor(Math.random() * colors.length);
+	return colors[randomIndex];
+};
+
+const Cube = ({ position, color = getRandomColor(), thickness = 1, roughness = 0.5, envMapIntensity = 1, transmission = 1, metalness, ...props }) => {
 	const mesh = useRef();
-	const isAlive = color === 'green';
+	const isAlive = color !== diedColor;
 
 	useEffect(() => {
 		if (mesh.current) {
@@ -56,30 +62,6 @@ const Cube = ({ position, color = 'white', thickness = 1, roughness = 0.5, envMa
 		</Box>
 	)
 }
-/**
-
-const Cube = ({ position, color }) => {
-	const mesh = useRef();
-	const isAlive = color === 'green';
-
-	useEffect(() => {
-		if (mesh.current) {
-			mesh.current.material.transparent = !isAlive;
-			mesh.current.material.opacity = isAlive ? 1 : 0;
-			mesh.current.material.needsUpdate = true;
-		}
-	}, [color]);
-
-	return (
-		<Box
-		position={position}>
-		<boxGeometry />
-		<MeshTransmissionMaterial resolution={1} samples={1} {...materialProps} />
-		<meshBasicMaterial transparent depthTest={false} />
-		</Box>
-	)
-}
-*/
 
 const generateInitialState = (size) => {
 	let state = [];
@@ -88,7 +70,7 @@ const generateInitialState = (size) => {
 		for(let y = 0; y < size; y++) {
 			state[x][y] = [];
 			for(let z = 0; z < size; z++) {
-				state[x][y][z] = Math.random() > random ? colors[0] : colors[1];
+				state[x][y][z] = Math.random() > random ? getRandomColor() : diedColor;
 			}
 		}
 	}
@@ -112,7 +94,7 @@ const generateAlgorithm = (cubes, size) => {
 								let ny = y + dy;
 								let nz = z + dz;
 
-								if(nx >= 0 && nx < size && ny >= 0 && ny < size && nz >= 0 && nz < size && cubes[nx][ny][nz] === colors[0]) {
+								if(nx >= 0 && nx < size && ny >= 0 && ny < size && nz >= 0 && nz < size && cubes[nx][ny][nz] !== diedColor) {
 									neighbors++;
 								}
 							}
@@ -121,13 +103,13 @@ const generateAlgorithm = (cubes, size) => {
 				}
 
 				// Aplicar las reglas del Juego de la Vida
-				if(cubes[x][y][z] === colors[0]) {
+				if(cubes[x][y][z] !== diedColor) {
 					if(neighbors < 2 || neighbors > 3) {
-						newState[x][y][z] = colors[1]; // Muerte por soledad o superpoblación
+						newState[x][y][z] = diedColor; // Muerte por soledad o superpoblación
 					}
 				} else {
 					if(neighbors === 3) {
-						newState[x][y][z] = colors[0]; // Nacimiento
+						newState[x][y][z] = getRandomColor(); // Nacimiento
 					}
 				}
 			}
