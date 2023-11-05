@@ -16,17 +16,24 @@ const GameSection = () => {
 		setIs3D(!is3D)
 	};
 
+	const components = [
+		is3D ? <Grid2X2 size={25} /> : <Box size={25} />,
+		is3D ? <InteractiveGrid3D style={{width: '100vw', height: '100vh'}} /> : <InteractiveGrid />,
+	];
+
 	return (
 		<div style={{width: '100%', height: '100vh', display: 'flex',  justifyContent: 'center', alignItems: 'center'}} className='gameBox'>
+		<div className='h-full' style={{paddingTop: is3D ? '' : '35px'}}>
 		<button
-		className={`mr-3 bg-[#424242] hover:bg-[#212121] text-white ${is3D ? 'mt-10 mr-10' : 'mt-0'} rounded-full`}
+		className={`bg-[#424242] hover:bg-[#212121] text-white ${is3D ? 'mt-10 mr-10' : 'mt-0 mr-5'} rounded-full`}
 		style={{position: is3D ? 'absolute' : 'static', top: is3D ? '10px' : 'auto', right: is3D ? '10px' : 'auto', zIndex: 1}}
 		onClick={toggle3D}>
 		<span className="mt-auto block px-4 py-4">
-		{is3D ? <Grid2X2 size={25} /> : <Box size={25} />}
+		{components[0]}
 		</span>
 		</button>
-		{is3D ? <InteractiveGrid3D style={{width: '100vw', height: '100vh'}} /> : <InteractiveGrid />}
+		</div>
+		{components[1]}
 		</div>
 	)
 }

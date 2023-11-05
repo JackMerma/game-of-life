@@ -12,6 +12,8 @@ const SideBarSection = () => {
 	return (
 		<Sidebar>
 			<div id='popup-root'></div>
+
+
 			<SidebarItem content={
 				<div className='pl-3 pr-3 mt-5'>
 					<p className='text-justify text-lg'>Conway&apos;s Game of Life is a cellular automaton simulation devised by British mathematician John Conway in 1970. The game is not a traditional game with winners and losers; instead, it&apos;s a zero-player game that operates based on a set of simple rules. It takes place on an infinite grid of cells, which can be either alive or dead. Each cell&apos;s state is determined by its neighboring cells. The game progresses in discrete steps, or generations, as cells evolve according to these rules. The rules dictate that a live cell with fewer than two live neighbors dies due to underpopulation, a live cell with two or three live neighbors continues to live, and a live cell with more than three live neighbors dies due to overpopulation. On the other hand, a dead cell with exactly three live neighbors becomes alive through reproduction. This simple set of rules gives rise to complex and often mesmerizing patterns and behaviors, making Conway&apos;s Game of Life a captivating example of emergent phenomena and a popular subject for computational experimentation.</p>
@@ -73,9 +75,19 @@ const SideBarSection = () => {
 					</div>
 				</div>
 			} icon={<Info size={20} />} text='Information' active />
+
+
 			<SidebarItem content={
-				<div></div>
+				<p className='text-lg text-justify'>
+				If you&apos;re interested in exploring the source code of the Conway&apos;s Game of Life project, you can find it on our GitHub repository. The repository contains the codebase and additional resources for both the 2D and the potential 3D versions of the game. I encourage you to check it out, contribute, or fork the project for your own experiments and enhancements. Click on the link below to access the repository:
+
+				<a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+				Game of Life GitHub Repository
+				</a>
+				</p>
 			} icon={<Github size={20} />} text='Source' active />
+
+
 			<SidebarItem content={
 				<div className='pl-3 pr-3 mt-5'>
 					<p className='text-lg text-justify'>
@@ -91,8 +103,23 @@ const SideBarSection = () => {
 					</p>
 				</div>
 			} icon={<Box size={20} />} text='3D version' active />
+
+
 			<SidebarItem content={
 				<div className='pl-3 pr-3 mt-5'>
+				<p className='text-lg text-justify'>
+				For more information about me and my projects, please feel free to reach out. I&apos;m a dedicated student of Systems Engineering at UNSA, and I&apos;m passionate about software development, simulations, and innovative technologies. You can explore my work, projects, and learn more about me through the following channels:
+
+				<button
+					className={`bg-[#424242] hover:bg-[#212121] text-white rounded-md mt-4`}
+				>
+				<span className="mt-auto block px-4 py-4">
+					<a href="https://jackson-merma.vercel.app/" target="_blank" rel="noopener noreferrer" className="">
+					My portfolio
+					</a>
+				</span>
+				</button>
+				</p>
 				</div>
 			} icon={<User2 size={20} />} text='Contact' active />
 		</Sidebar>
