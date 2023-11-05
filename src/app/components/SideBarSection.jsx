@@ -81,7 +81,7 @@ const SideBarSection = () => {
 				<p className='text-lg text-justify'>
 				If you&apos;re interested in exploring the source code of the Conway&apos;s Game of Life project, you can find it on our GitHub repository. The repository contains the codebase and additional resources for both the 2D and the potential 3D versions of the game. I encourage you to check it out, contribute, or fork the project for your own experiments and enhancements. Click on the link below to access the repository:
 
-				<a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+				<a href="https://github.com/JackMerma/game-of-life" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
 				Game of Life GitHub Repository
 				</a>
 				</p>
