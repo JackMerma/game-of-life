@@ -9,10 +9,25 @@ import {
 	Pause,
 } from "lucide-react";
 
+const colors = ["green", "white"];
+const velocity = 1000;
+const n = 10;
+
 const Cube = ({ position, color }) => {
+	const mesh = useRef();
+	const isAlive = color === 'green';
+
+	useEffect(() => {
+		if (mesh.current) {
+			mesh.current.material.transparent = !isAlive;
+			mesh.current.material.opacity = isAlive ? 1 : 0;
+			mesh.current.material.needsUpdate = true;
+		}
+	}, [color]);
+
 	return (
-		<Box args={[1, 1, 1]} position={position}>
-		<meshStandardMaterial color={color} />
+		<Box ref={mesh} args={[0.6, 0.6, 0.6]} position={position}>
+		<meshStandardMaterial attach='material' color={color} />
 		</Box>
 	)
 }
@@ -24,25 +39,64 @@ const generateInitialState = (size) => {
 		for(let y = 0; y < size; y++) {
 			state[x][y] = [];
 			for(let z = 0; z < size; z++) {
-				state[x][y][z] = Math.random() > 0.5 ? 'green' : 'red';
+				state[x][y][z] = Math.random() > 0.5 ? colors[0] : colors[1];
 			}
 		}
 	}
 	return state;
 }
 
+const generateAlgorithm = (cubes, size) => {
+	let newState = JSON.parse(JSON.stringify(cubes)); // Crear una copia profunda del estado actual
+
+	for(let x = 0; x < size; x++) {
+		for(let y = 0; y < size; y++) {
+			for(let z = 0; z < size; z++) {
+				let neighbors = 0;
+
+				// Contar los vecinos vivos
+				for(let dx = -1; dx <= 1; dx++) {
+					for(let dy = -1; dy <= 1; dy++) {
+						for(let dz = -1; dz <= 1; dz++) {
+							if(dx !== 0 || dy !== 0 || dz !== 0) {
+								let nx = x + dx;
+								let ny = y + dy;
+								let nz = z + dz;
+
+								if(nx >= 0 && nx < size && ny >= 0 && ny < size && nz >= 0 && nz < size && cubes[nx][ny][nz] === colors[0]) {
+									neighbors++;
+								}
+							}
+						}
+					}
+				}
+
+				// Aplicar las reglas del Juego de la Vida
+				if(cubes[x][y][z] === colors[0]) {
+					if(neighbors < 2 || neighbors > 3) {
+						newState[x][y][z] = colors[1]; // Muerte por soledad o superpoblación
+					}
+				} else {
+					if(neighbors === 3) {
+						newState[x][y][z] = colors[0]; // Nacimiento
+					}
+				}
+			}
+		}
+	}
+
+	return newState;
+}
+
 const InteractiveGrid3D = () => {
 
-	let n = 10
 	const [cubeStates, setCubeStates] = useState(generateInitialState(n));
 
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setCubeStates(prevState => generateInitialState(n));
-			//logica
-			//
-		}, 1000);
+			setCubeStates(prevState => generateAlgorithm(prevState, n));
+		}, velocity);
 		return () => clearInterval(interval);
 	}, []);
 
@@ -56,7 +110,7 @@ const InteractiveGrid3D = () => {
 			{cubeStates.map((xs, x) =>
 				xs.map((ys, y) =>
 					ys.map((color, z) =>
-						<Cube key={`${x}-${y}-${z}`} position={[x, y, z]} color={color} />
+						<Cube key={`${x-n/2}-${y-n/2}-${z-n/2}`} position={[x-n/2, y-n/2, z-n/2]} color={color} />
 					)
 				)
 			)}
