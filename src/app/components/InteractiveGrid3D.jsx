@@ -124,17 +124,6 @@ const InteractiveGrid3D = () => {
 	const [cubeStates, setCubeStates] = useState(generateInitialState(n));
 	const [intervalId, setIntervalId] = useState(null);
 
-	useEffect(() => {
-		if (intervalId) {
-			clearInterval(intervalId);
-		}
-		const id = setInterval(() => {
-			setCubeStates(prevState => generateAlgorithm(prevState, n));
-		}, velocity);
-		setIntervalId(id);
-		return () => clearInterval(id);
-	}, [velocity]);
-
 	const handleGenerateRandomClick = () => {
 		setCubeStates(generateInitialState(n));
 	}
