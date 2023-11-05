@@ -1,7 +1,7 @@
 "use client"
 import React, { Component, useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, Box } from '@react-three/drei'
 import ButtonComponent from './ButtonComponent';
 import {
 	RotateCcw,
@@ -9,13 +9,24 @@ import {
 	Pause,
 } from "lucide-react";
 
-function Cube({ color }){
-	return (
-		<mesh>
-			<boxGeometry />
-			<meshStandardMaterial color={color} />
-		</mesh>
-	)
+const Cube = ({ position, color }) => {
+	<Box args={[1, 1, 1]} position={position}>
+		<meshStandardMaterial color={color} />
+	</Box>
+}
+
+const generateInicialState = (size) => {
+	let state = [];
+	for(let x = 0; x < size; x++) {
+		state[x] = [];
+		for(let y = 0; y < size; y++) {
+			state[x][y] = [];
+			for(let z = 0; z < size; z++) {
+				state[x][y][z] = Math.random() > 0.5 ? 'green' : 'red';
+			}
+		}
+	}
+	return state;
 }
 
 const InteractiveGrid3D = () => {
