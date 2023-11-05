@@ -4,9 +4,9 @@ import SideBarSection from './components/SideBarSection'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen" style={{height: '100%', width: '100%'}}>
+    <main className="flex">
       <SideBarSection />
-      <GameSection />
+      <GameSection style={{height: '100vw'}} />
     </main>
   )
 }

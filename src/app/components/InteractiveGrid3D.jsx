@@ -143,7 +143,7 @@ const InteractiveGrid3D = () => {
 	}
 
 	return (
-		<div className='pb-10' style={{ width: '100vh', height: '700px'}}>
+		<div className='h-full w-full'>
 		<Canvas dpr={[1, 2]} orthographic camera={{ position: [-10, 10, 10], zoom: 100 }}>
 		<pointLight position={[10, 10, 10]} />
 		{cubeStates.map((xs, x) =>
